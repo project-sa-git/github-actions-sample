@@ -6,4 +6,4 @@
  */
 
 // コンソールにメッセージを出力する
-console.log("Hello MyActions");
+console.log("Hello MyActions ts-app");
