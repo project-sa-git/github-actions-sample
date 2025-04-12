@@ -1,0 +1,41 @@
+# ワークフローの名前を定義
+name: Simple TypeScript Test
+
+# ワークフローを実行するトリガーを設定
+on:
+  # ts-appディレクトリ内のファイルが変更されたときに実行
+  push:
+    paths:
+      - "ts-app/**"
+  # 手動実行も可能
+  workflow_dispatch:
+
+# 実行するジョブを定義
+jobs:
+  build:
+    # Ubuntu最新版で実行
+    runs-on: ubuntu-latest
+    steps:
+      # 開始メッセージを表示
+      - name: Start message
+        run: echo "Welcome to GitHub Actions"
+
+      # リポジトリのコードをチェックアウト
+      - uses: actions/checkout@v3
+
+      # Node.js環境をセットアップ
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      # TypeScriptをインストール
+      - name: Install TypeScript
+        run: npm install -g typescript
+
+      # TypeScriptファイルをコンパイルして実行
+      - run: tsc ts-app/helle-world.ts && node ts-app/helle-world.js
+
+      # 終了メッセージを表示
+      - name: Finish message
+        run: echo "Finished running the demo"
